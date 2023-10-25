@@ -2,9 +2,9 @@ import type {NavBarConfig, ProfileConfig, SiteConfig} from "./types/config.ts";
 import {LinkPreset} from "./types/config.ts";
 
 export const siteConfig: SiteConfig = {
-    title: 'Fuwari',
-    subtitle: 'Demo Site',
-    lang: 'en-US',
+    title: 'Leosouthey',
+    subtitle: '莱奥斯的个人博客',
+    lang: 'zh_CN',
     themeHue: 250,
     banner: {
         enable: true,
@@ -19,29 +19,31 @@ export const navBarConfig: NavBarConfig = {
         LinkPreset.About,
         {
             name: 'GitHub',
-            url: 'https://github.com/saicaca/fuwari',
+            url: 'https://github.com/leosouthey',
             external: true,
         }
     ]
 }
 
 export const profileConfig: ProfileConfig = {
-    avatar: 'assets/images/demo-avatar.png',
-    name: 'Lorem Ipsum',
-    bio: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    avatar: 'https://q.qlogo.cn/headimg_dl?dst_uin=22147493&spec=640&img_type=png',
+    name: 'Leosouthey (莱奥斯)',
+    bio: 'Time slows down when it can get no worse',
     links: [
         {
-            name: 'Twitter',
-            icon: 'fa6-brands:twitter',
-            url: 'https://twitter.com',
-        }, {
+            name: 'QQ',
+            icon: 'fa6-brands:qq',
+            url: 'tencent://message/?uin=22147493&Site=qq&Menu=yes',
+        },
+        {
             name: 'Steam',
-            icon: 'fa6-brands:steam',
-            url: 'https://store.steampowered.com',
-         }, {
+            icon: 'fa6-brands:bilibili',
+            url: 'https://space.bilibili.com/270814359',
+        },
+        {
             name: 'GitHub',
             icon: 'fa6-brands:github',
-            url: 'https://github.com/saicaca/fuwari',
+            url: 'https://github.com/leosouthey',
         }
     ]
 }
