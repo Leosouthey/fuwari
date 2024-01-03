@@ -1,5 +1,5 @@
 import type { Translation } from "../translation.ts";
-import Key from "../i18nKey.ts";
+import Key from "../i18nKey";
 
 export const zh_CN: Translation = {
     [Key.home]: "主页",

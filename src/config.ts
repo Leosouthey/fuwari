@@ -1,5 +1,5 @@
 import type {LicenseConfig, NavBarConfig, ProfileConfig, SiteConfig} from "./types/config.ts";
-import {LinkPreset} from "./types/config.ts";
+import {LinkPreset} from "./types/config"
 
 export const siteConfig: SiteConfig = {
     title: 'Leosouthey',
