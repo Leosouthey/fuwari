@@ -37,3 +37,9 @@ export type ProfileConfig = {
         icon: string,
     }[],
 };
+
+export type LicenseConfig = {
+    enable: boolean;
+    name: string,
+    url: string,
+}

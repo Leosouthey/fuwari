@@ -8,7 +8,9 @@ import Button from "../../components/control/Button.astro";
 import {i18n} from "../../i18n/translation";
 import I18nKey from "../../i18n/i18nKey";
 import {getPostUrlBySlug} from "../../utils/url-utils";
-import CommentLayout from "../../components/comment/CommentLayout.astro";
+import License from "../../components/misc/License.astro";
+import {licenseConfig} from "../../config";
+import Markdown from "../../components/misc/Markdown.astro";
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection('posts');
@@ -25,7 +27,7 @@ const { remarkPluginFrontmatter } = await entry.render();
 ---
 <MainGridLayout banner={entry.data.image} title={entry.data.title}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">
-        <div class:list={["card-base z-10 px-4 md:px-9 pt-6 pb-10 relative w-full ",
+        <div class:list={["card-base z-10 px-4 md:px-9 pt-6 pb-4 relative w-full ",
             {}
         ]}>
             <!-- word count and reading time -->
@@ -62,7 +64,7 @@ const { remarkPluginFrontmatter } = await entry.render();
                     class="mb-5"
                     published={entry.data.published}
                     tags={entry.data.tags}
-                    categories={entry.data.categories}
+                    category={entry.data.category}
             ></PostMetadata>
 
             <!-- always show cover as long as it has one -->
@@ -73,12 +75,11 @@ const { remarkPluginFrontmatter } = await entry.render();
 
             {!entry.data.image && <div class="border-[var(--line-divider)] border-dashed border-b-[1px] mb-5"></div>}
 
-            <div class="prose dark:prose-invert prose-sm md:prose-base max-w-none custom-md
-            ">
-            <!--<div class="prose dark:prose-invert max-w-none custom-md">-->
-            <!--<div class="max-w-none custom-md">-->
+            <Markdown class="mb-6">
                 <Content />
-            </div>
+            </Markdown>
+
+            {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl"></License>}
 
         </div>
     </div>
@@ -87,7 +88,7 @@ const { remarkPluginFrontmatter } = await entry.render();
         <a href={getPostUrlBySlug(entry.data.nextSlug)} class="w-full font-bold overflow-hidden active:scale-95">
             {entry.data.nextSlug && <Button class="w-full max-w-full h-10 px-4 rounded-2xl flex items-center justify-start gap-4" card height="60px">
                 <Icon name="material-symbols:chevron-left-rounded" size={32} class="text-[var(--primary)]" />
-                <div class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_48px)] text-black/75 dark:text-white/75">
+                <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_48px)] text-black/75 dark:text-white/75">
                     {entry.data.nextTitle}
                 </div>
             </Button>}
@@ -95,7 +96,7 @@ const { remarkPluginFrontmatter } = await entry.render();
 
         <a href={getPostUrlBySlug(entry.data.prevSlug)} class="w-full font-bold overflow-hidden active:scale-95">
             {entry.data.prevSlug && <Button class="w-full max-w-full h-10 px-4 rounded-2xl flex items-center justify-end gap-4" card height="60px">
-                <div class="overflow-hidden overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_48px)] text-black/75 dark:text-white/75">
+                <div class="overflow-hidden transition overflow-ellipsis whitespace-nowrap max-w-[calc(100%_-_48px)] text-black/75 dark:text-white/75">
                     {entry.data.prevTitle}
                 </div>
                 <Icon name="material-symbols:chevron-right-rounded" size={32} class="text-[var(--primary)]" />
@@ -104,93 +105,3 @@ const { remarkPluginFrontmatter } = await entry.render();
     </div>
 
 </MainGridLayout>
-
-<style lang="stylus" is:global>
-.custom-md
-  a
-    position: relative
-    background: none
-    margin: -4px
-    padding: 4px
-    border-radius: 6px
-    color: var(--primary)
-    text-decoration-line: none;
-    /*&:after*/
-    /*  content: ''*/
-    /*  position: absolute*/
-    /*  left: 2px*/
-    /*  right: 2px*/
-    /*  bottom: 4px*/
-    /*  height: 6px*/
-    /*  border-radius: 3px*/
-    /*  background: var(--link-hover)*/
-    /*  transition: background 0.15s ease-in-out;*/
-    /*  z-index: -1;*/
-    &:hover
-      background: var(--link-hover)
-    &:active
-      background: var(--link-active)
-      /*&:after*/
-      /*  background: var(--link-active)*/
-  code
-    font-family: monospace
-    background: var(--inline-code-bg)
-    color: var(--inline-code-color)
-    padding: 2px 4px
-    border-radius: 4px
-    overflow: hidden
-    &:before
-        content: none
-    &:after
-        content: none
-  pre
-    background: var(--codeblock-bg) !important
-    border-radius: 12px
-    padding-left: 20px
-    padding-right: 20px
-    code
-      padding: 0
-      background: none
-      ::selection
-        background: var(--codeblock-selection)
-      span.br::selection
-          background: var(--codeblock-selection)
-  ul
-    li
-      &::marker
-        color: var(--primary)
-  ol
-    li
-      &::marker
-        color: var(--primary)
-  blockquote
-    font-style: normal
-    border-left-color: rgba(0,0,0,0)
-    position: relative;
-    &:before
-      content: ''
-      position: absolute
-      left: -0.25rem
-      display: block
-      transition: background 0.15s ease-in-out;
-      background: var(--btn-regular-bg)
-      height: 100%
-      width: 0.25rem
-      border-radius: 1rem
-    p
-      &:before
-        content: none
-      &:after
-        content: none
-  img
-    border-radius: 8px
-  hr
-    border-color: var(--line-divider)
-    border-style: dashed
-  iframe
-    border-radius: 12px
-    margin-left: auto
-    margin-right: auto
-    max-width: 100%
-
-</style>
