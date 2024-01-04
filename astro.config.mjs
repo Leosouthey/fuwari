@@ -24,7 +24,7 @@ const oklchToHex = function (str) {
 }
 
 export default defineConfig({
-  site: 'https://fuwari.vercel.app/',
+  site: 'https://leo.echoverse.cn/',
   base: '/',
   integrations: [
     tailwind(),
